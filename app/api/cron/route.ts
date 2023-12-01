@@ -90,6 +90,6 @@ export async function GET(request: Request) {
         })
     } catch (error: any) {
         console.log(JSON.stringify(error))
-        throw new Error(`Failed to get all products: ${JSON.stringify(error)}`)
+        throw new Error(`Failed to get all products: ${error.message}`)
     }
 }
