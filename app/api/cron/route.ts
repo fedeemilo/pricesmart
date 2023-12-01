@@ -14,7 +14,7 @@ export const maxDuration = 10
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
-export async function GET() {
+export async function GET(request: Request) {
     try {
         connectToDB()
 
@@ -29,7 +29,7 @@ export async function GET() {
                     currentProduct.url
                 )
 
-                if (!scrapedProduct) throw new Error('No product found')
+                if (!scrapedProduct) return
 
                 const updatedPriceHistory = [
                     ...currentProduct.priceHistory,
