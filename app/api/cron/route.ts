@@ -26,7 +26,6 @@ export async function GET(request: Request) {
         // ======================== 1 SCRAPE LATEST PRODUCT DETAILS & UPDATE DB
         const updatedProducts = await Promise.all(
             products.map(async currentProduct => {
-                console.log(currentProduct.url)
                 // Scrape product
                 const scrapedProduct = await scrapeAmazonProduct(
                     currentProduct.url
@@ -90,6 +89,7 @@ export async function GET(request: Request) {
             data: updatedProducts
         })
     } catch (error: any) {
+        console.log(JSON.stringify(error))
         throw new Error(`Failed to get all products: ${error.message}`)
     }
 }
