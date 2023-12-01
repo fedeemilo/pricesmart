@@ -2,6 +2,8 @@ import axios from 'axios'
 import * as cheerio from 'cheerio'
 import { extractCurrency, extractDescription, extractPrice } from '../utils'
 
+import noImage from '/assets/icons/no-image.svg'
+
 export async function scrapeAmazonProduct(url: string) {
     if (!url) return
 
@@ -75,7 +77,7 @@ export async function scrapeAmazonProduct(url: string) {
         const data = {
             url,
             currency: currency || '$',
-            image: imageUrls[0],
+            image: imageUrls?.[0] ?? noImage,
             title,
             currentPrice: Number(currentPrice) || Number(originalPrice),
             originalPrice: Number(originalPrice) || Number(currentPrice),
