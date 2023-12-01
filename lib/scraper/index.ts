@@ -64,6 +64,13 @@ export async function scrapeAmazonProduct(url: string) {
             .eq(1)
             .text()
 
+        const parsedDiscountRate = Number(discountRate)
+        const isValidDiscountRate =
+            !isNaN(parsedDiscountRate) && isFinite(parsedDiscountRate)
+        const sanitizedDiscountRate = isValidDiscountRate
+            ? parsedDiscountRate
+            : 0
+
         // Construct data object with scraped information
         const data = {
             url,
@@ -73,7 +80,7 @@ export async function scrapeAmazonProduct(url: string) {
             currentPrice: Number(currentPrice) || Number(originalPrice),
             originalPrice: Number(originalPrice) || Number(currentPrice),
             priceHistory: [],
-            discountRate: Number(discountRate),
+            discountRate: sanitizedDiscountRate,
             category: category || '-',
             reviewsCount: 100,
             stars: 4.5,
